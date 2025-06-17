@@ -2,7 +2,8 @@
 
 import os
 import time  # Import the time module for timing
-# Start timing
+
+clear_screen = lambda: os.system('cls' if os.name == 'nt' else 'clear')
 
 def CheckForFiles():
     # Check if there are any ".mp3" files available in the current directory
@@ -25,6 +26,7 @@ def Transcribe(file_name):
     import torch
     from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
+    # Start timing
     start_time = time.time()
     print ("Setting up the model...")
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
@@ -84,6 +86,7 @@ def Transcribe(file_name):
     
 
 if __name__ == "__main__":
-    
+    clear_screen()
     file_name = CheckForFiles()
+    print("File to transcribe: ", file_name)
     Transcribe(file_name)

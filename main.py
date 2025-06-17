@@ -5,7 +5,7 @@ import os
 import AudioDownloader_TheWire
 import Speach2Text_Turbo
 
-interval_minutes = 0.2  # Adjust this value to change the time interval
+interval_minutes = 1.0  # Adjust this value to change the time interval
 print(f"Starting... Will do something every {interval_minutes} minutes")
 
 ctr = 0
@@ -18,12 +18,17 @@ while True:
 
     pass  # Insert your code here
     AudioDownloader_TheWire.check_n_download()
+    
+    
+    
+    
     file_name = Speach2Text_Turbo.CheckForFiles()
+    """
     if 1 or Speach2Text_Turbo.Transcribe(file_name):
         print("Transcription successful")
         print("Deleting the audio file...")
         os.remove(file_name)
-    
+    """
 
 
     print("Cycle completed in: ", round(time.time() - cycle_start_time, 2), "seconds")
