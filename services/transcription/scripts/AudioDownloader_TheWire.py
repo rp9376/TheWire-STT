@@ -53,26 +53,26 @@ def check_n_download(channel_url="https://www.youtube.com/@S2Underground", max_v
                     output_filename = safe_title + ".mp3"
                     output_filepath = os.path.join(audio_dir, output_filename)
                     if os.path.exists(output_filepath):
-                        logging.info(f"{ctr+1}.) File already exists on disk: {output_filepath}")
+                        logging.info(f"[{ctr+1}/{max_videos}] File already exists on disk: {output_filepath}")
                         summary["skipped"].append(video.title)
                         continue
                     stream = video.streams.filter(abr="128kbps", only_audio=True).first()
                     if stream and getattr(stream, "audio_codec", None) == "mp4a.40.2":
-                        logging.info(f"{ctr+1}.) Downloading {video.title}...")
+                        logging.info(f"[{ctr+1}/{max_videos}] Downloading {video.title}...")
                         try:
                             stream.download(output_path=audio_dir, filename=output_filename)
                             summary["downloaded"].append(video.title)
                         except Exception as download_err:
-                            logging.error(f"Download failed for {video.title}: {download_err}")
+                            logging.error(f"[{ctr+1}/{max_videos}] Download failed for {video.title}: {download_err}")
                             summary["errors"].append(video.title)
                     else:
-                        logging.warning(f"{ctr+1}.) No suitable audio stream found for {video.title}.")
+                        logging.warning(f"[{ctr+1}/{max_videos}] No suitable audio stream found for {video.title}.")
                         summary["errors"].append(video.title)
                 else:
-                    logging.info(f"{ctr+1}.) Video already in video_list.txt: {video.title}")
+                    logging.info(f"[{ctr+1}/{max_videos}] Video already in video_list.txt: {video.title}")
                     summary["skipped"].append(video.title)
             else:
-                logging.info(f"{ctr+1}.) Video does not match 'The Wire': {video.title}")
+                logging.info(f"[{ctr+1}/{max_videos}] Video does not match 'The Wire': {video.title}")
 
         # Append the new videos to the list
         if summary["downloaded"]:

@@ -164,3 +164,9 @@ cython_debug/
 # Ignore all mp3 audio files in the repository
 *.mp3
 services/transcription/audio/*.mp3
+
+# Ignore all transcript text files
+services/transcription/transcripts/*.txt
+
+# Ignore video list files
+video_list.txt
