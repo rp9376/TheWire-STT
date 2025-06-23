@@ -21,26 +21,32 @@ This project automates the process of downloading, transcribing, and translating
 
 ## Project Structure
 
-- `AudioDownloader_TheWire.py`  
-  Downloads new videos and extracts audio.
+- `services/transcription/` — Fetches videos, transcribes audio, and interacts with Ollama LLM
+- `services/api/` — Database and API for storing/fetching transcriptions
+- `services/web/` — Web frontend
+- `services/mobile/` — Mobile app (future)
+- `data/` — Shared data (audio, transcripts, etc.)
+- `docker/` — Docker and compose files
+- `config/` — Configuration files
 
-- `Speach2Text_Turbo.py`  
-  Finds `.mp3` files and transcribes them to `.txt`.
+## Running with Docker
+See `docker/README.md` for details.
 
-- `translate.py`  
-  Translates a transcript file from English to Slovenian.
+---
 
-- `Ollama_Connection.py`  
-  Connects to a remote Ollama server and sends user prompts.
+# Legacy Files (to be moved):
+- `AudioDownloader_TheWire.py`
+- `main.py`
+- `Ollama_Connection.py`
+- `Speach2Text_Turbo.py`
+- `translate.py`
+- `requirements.txt`
+- `output.txt`
+- `video_list.txt`
+- `The Wire - June 14, 2025 - Priority.mp3`
+- `The Wire - November 28, 2024.txt`
 
-- `main.py`  
-  Runs the download and transcription process in a timed loop.
-
-- `video_list.txt`  
-  Tracks already downloaded videos to avoid duplicates.
-
-- `requirements.txt`  
-  Lists required Python packages.
+These will be moved to appropriate service folders.
 
 ## Usage
 
