@@ -6,8 +6,9 @@ import time  # Import the time module for timing
 clear_screen = lambda: os.system('cls' if os.name == 'nt' else 'clear')
 
 def CheckForFiles():
-    # Check if there are any ".mp3" files available in the current directory
-    mp3_files = [f for f in os.listdir('.') if f.endswith('.mp3')]
+    # Check if there are any ".mp3" files available in the audio directory
+    audio_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'audio'))
+    mp3_files = [os.path.join(audio_dir, f) for f in os.listdir(audio_dir) if f.endswith('.mp3')]
 
     # If there are any ".mp3" files, put the first filename to a variable
     if mp3_files:
@@ -15,7 +16,7 @@ def CheckForFiles():
         print("File found: ", file_name)
         return file_name
     else:
-        print("No '.mp3' files found in the current directory")
+        print("No '.mp3' files found in the audio directory")
         return None
     
 
