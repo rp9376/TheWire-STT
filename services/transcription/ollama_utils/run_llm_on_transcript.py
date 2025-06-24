@@ -40,7 +40,7 @@ def get_transcript_file():
     txt_files = [f for f in os.listdir(TRANSCRIPTS_DIR) if f.endswith('.txt')]
     if not txt_files:
         logger.error('No transcript files found in transcripts folder.')
-        raise FileNotFoundError('No transcript files found in transcripts folder.')
+        return None
     # Pick the first transcript (could be improved to pick by date, etc.)
     txt_files.sort(key=lambda f: os.path.getmtime(os.path.join(TRANSCRIPTS_DIR, f)), reverse=True)
     transcript_path = os.path.join(TRANSCRIPTS_DIR, txt_files[0])
@@ -51,11 +51,15 @@ def combine_prompt_and_transcript(prompt, transcript):
     """Combine prompt and transcript as if appending two files."""
     return f"{prompt}\n{transcript}"
 
-def run_llm_on_transcript():
+def run_llm_on_transcript(transcript_path = None, prompt_dir=None):
     """Run the LLM on the latest prompt and transcript, return the LLM's response."""
     client = create_client()
-    transcript_path = get_transcript_file()
-    prompt_text = get_latest_prompt()
+    if transcript_path is None:
+        logger.info("No transcript path provided, using the latest transcript file.")
+        transcript_path = get_transcript_file()
+    if prompt_dir is None:
+        logger.info("No prompt directory provided, using the default prompt directory.")
+        prompt_text = get_latest_prompt()
     with open(transcript_path, 'r', encoding='utf-8') as f:
         transcript = f.read()
     combined = combine_prompt_and_transcript(prompt_text, transcript)

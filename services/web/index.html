@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>Wire News</title>
+  <link rel="icon" type="image/png" href="/icon.png">
+  <link rel="shortcut icon" type="image/png" href="/icon.png">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="site-title" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+      <span style="display:flex;align-items:center;gap:10px;">
+        <img src="/icon.png" alt="Wire News" style="height:1.7em;width:1.7em;vertical-align:middle;border-radius:6px;box-shadow:0 2px 8px #a1c4fd33;">
+        <span>Wire News</span>
+      </span>
+      <button id="theme-toggle" aria-label="Toggle dark mode" style="font-size:1em;padding:4px 10px;border-radius:8px;border:none;background:#2563eb;color:#fff;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:4px;">
+        <span id="theme-toggle-icon" style="font-size:1.1em;line-height:1;">
+          <svg id="theme-toggle-svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="8" stroke="#222" stroke-width="2" fill="#fff" />
+            <path id="theme-toggle-half" d="M10 2a8 8 0 0 1 0 16V2z" fill="#222" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div id="news-container">
+      <!-- News articles will be loaded here -->
+    </div>
+    <div class="end-message" id="end-message">You have reached the end. No more articles to load.</div>
+  </div>
+  <div class="loading" id="loading" style="display:none;">Loading...</div>
+  <!-- Modal for full story -->
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal" id="modal">
+      <button class="close-btn" id="close-modal" title="Close">&times;</button>
+      <h2 id="modal-title"></h2>
+      <small id="modal-date"></small>
+      <p id="modal-content"></p>
+      <hr>
+      <div id="modal-full-story"></div>
+    </div>
+  </div>
+  <script src="/static/main.js"></script>
+  <script src="/static/theme.js"></script>
+</body>
+</html>

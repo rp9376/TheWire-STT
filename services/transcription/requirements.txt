@@ -3,8 +3,11 @@ transformers==4.41.2
 accelerate==0.31.0
 librosa==0.10.2.post1
 protobuf==5.27.1
-pytubefix==9.1.2
+pytubefix==9.2.1
 ollama==0.5.1
+Flask
+Flask-SQLAlchemy
+passlib
 
 # Requirements for all services should be split into service-specific requirements files.
 # This file can be removed after migration.
