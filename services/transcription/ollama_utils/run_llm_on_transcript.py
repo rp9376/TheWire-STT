@@ -65,7 +65,14 @@ def run_llm_on_transcript(transcript_path = None, prompt_dir=None):
     combined = combine_prompt_and_transcript(prompt_text, transcript)
     logger.info("Sending combined prompt and transcript to LLM...")
     try:
-        response = client.chat(MODEL, messages=[{'role': 'user', 'content': combined}])
+        #print(f"Combined prompt and transcript:\n{combined}\n")
+        response = client.chat(
+            MODEL,
+            messages=[{'role': 'user', 'content': combined}],
+            options={"num_ctx": 10000}
+        )
+        #print(f"LLM response: {response}")
+        
         logger.info("Received response from LLM.")
         return response['message']['content']
     except Exception as e:

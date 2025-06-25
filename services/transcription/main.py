@@ -16,7 +16,7 @@ def main():
     ENABLE_TRANSCRIPTION = True  # Set to False to skip transcription for debugging
     RUN_ONCE = False  # Set to True to run only one cycle and exit
     USE_MOCK_JSON = False  # Set to True to use mock_json.txt even if no transcription
-    NUMBER_OF_VIDEOS = 15  # Number of videos to download
+    NUMBER_OF_VIDEOS = 2  # Number of videos to download
     
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
     logging.info(f"Starting... The cycle will run every {interval_minutes} minutes.")
