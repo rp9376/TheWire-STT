@@ -50,30 +50,49 @@ if (!ALLOW_SIGNUP) {
   signupBtn.style.display = 'none';
 }
 
-loginForm.addEventListener('submit', function(e) {
+loginForm.addEventListener('submit', async function(e) {
   e.preventDefault();
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value;
   if (isSignup) {
     const email = document.getElementById('email').value.trim();
-    // Mock signup logic
     if (username && password && email) {
-      loginMessage.style.color = '#2563eb';
-      loginMessage.textContent = 'Account created! You can now log in.';
-      switchToLogin();
+      // Real signup logic
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, email })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        loginMessage.style.color = '#2563eb';
+        loginMessage.textContent = data.message || 'Account created! You can now log in.';
+        switchToLogin();
+      } else {
+        loginMessage.style.color = '#e17055';
+        loginMessage.textContent = data.message || data.error || 'Signup failed.';
+      }
     } else {
       loginMessage.style.color = '#e17055';
       loginMessage.textContent = 'Please fill in all fields.';
     }
   } else {
-    // Mock login logic
-    if (username === 'user' && password === 'pass') {
+    // Real login logic
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
       loginMessage.style.color = '#2563eb';
-      loginMessage.textContent = 'Login successful!';
-      // Redirect or further logic here
+      loginMessage.textContent = 'Login successful! Redirecting...';
+      // Store token in localStorage for API requests
+      if (data.token) localStorage.setItem('session_token', data.token);
+      setTimeout(() => { window.location.href = '/news'; }, 800);
     } else {
       loginMessage.style.color = '#e17055';
-      loginMessage.textContent = 'Invalid username or password.';
+      loginMessage.textContent = data.message || 'Invalid username or password.';
     }
   }
 });

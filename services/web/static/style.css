@@ -87,11 +87,14 @@ body.dark small {
   text-align: center;
   padding: 24px;
   color: #2563eb;
-  font-size: 1.1em;
-  font-weight: 500;
+  font-size: 1.4em;
+  font-weight: bold;
+  letter-spacing: 0.01em;
 }
 body.dark .loading {
-  color: #60a5fa;
+  color: #1e293b;
+  font-size: 1.4em;
+  font-weight: bold;
 }
 .end-message {
   text-align: center;

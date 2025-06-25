@@ -123,6 +123,17 @@ def dump_stories():
         } for s in stories
     ])
 
+@app.route('/api/dump_users', methods=['GET'])
+def dump_users():
+    users = User.query.all()
+    return jsonify([
+        {
+            'id': u.id,
+            'username': u.username,
+            'email': u.email
+        } for u in users
+    ])
+
 @app.route('/api/clear_db', methods=['POST'])
 def clear_db():
     """Delete all stories, users, and sessions from the database. For development/debug only!"""
@@ -131,6 +142,26 @@ def clear_db():
     User.query.delete()
     db.session.commit()
     return jsonify({'status': 'Database cleared!'}), 200
+
+@app.route('/api/dump_sessions', methods=['GET'])
+def dump_sessions():
+    sessions = Session.query.all()
+    return jsonify([
+        {
+            'id': s.id,
+            'user_id': s.user_id,
+            'login_time': s.login_time.isoformat() if s.login_time else None,
+            'ip_address': s.ip_address,
+            'token': s.token
+        } for s in sessions
+    ])
+
+@app.route('/api/delete_all_users', methods=['POST'])
+def delete_all_users():
+    Session.query.delete()
+    User.query.delete()
+    db.session.commit()
+    return jsonify({'status': 'All users and sessions deleted!'}), 200
 
 if __name__ == '__main__':
     os.system('cls' if os.name == 'nt' else 'clear')
