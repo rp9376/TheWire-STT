@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory, redirect, url_for
 from datetime import datetime, timedelta
+import requests
 
 app = Flask(__name__)
 
@@ -17,12 +18,26 @@ mock_articles = [
 @app.route('/api/news')
 def get_news():
     limit = int(request.args.get('limit', 10))
-    before = request.args.get('before', datetime.now().isoformat())
-
-    filtered = [a for a in mock_articles if a["published_at"] < before]
-    sorted_articles = sorted(filtered, key=lambda x: x["published_at"], reverse=True)
-
-    return jsonify(sorted_articles[:limit])
+    before = request.args.get('before')
+    # Fetch stories from the real API/database service
+    try:
+        api_url = 'http://localhost:5000/api/stories'
+        resp = requests.get(api_url)
+        if resp.status_code != 200:
+            return jsonify({'error': 'Failed to fetch news from database.'}), 500
+        stories = resp.json()
+        # Just use the date and time as strings from the database
+        for s in stories:
+            s['published_at'] = f"{s.get('broadcast_date','')} {s.get('broadcast_time','')}".strip()
+            s['content'] = s.get('tldr') or (s.get('text','')[:200])
+            s['full_story'] = s.get('text','')
+        # Filter by 'before' timestamp if provided
+        if before:
+            stories = [a for a in stories if a['published_at'] < before]
+        sorted_articles = sorted(stories, key=lambda x: x['published_at'], reverse=True)
+        return jsonify(sorted_articles[:limit])
+    except Exception as e:
+        return jsonify({'error': f'Exception fetching news: {e}'}), 500
 
 @app.route('/')
 def root_redirect():
@@ -56,4 +71,4 @@ def favicon_ico():
     return redirect(url_for('static', filename='icon.ico'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8000)

@@ -12,7 +12,7 @@ const modalTitle = document.getElementById('modal-title');
 const modalDate = document.getElementById('modal-date');
 const modalContent = document.getElementById('modal-content');
 const modalFullStory = document.getElementById('modal-full-story');
-const MOCK_FULL_STORY = `This is the full story of the news article.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu consectetur consectetur, nisl nisi consectetur nisi, eu consectetur nisl nisi euismod nisi. Vivamus euismod, nisi eu consectetur consectetur, nisl nisi consectetur nisi, eu consectetur nisl nisi euismod nisi.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.`;
+const modalPrecedence = document.getElementById('modal-precedence');
 
 // Remove event delegation, restore per-article click
 async function fetchArticles() {
@@ -27,8 +27,16 @@ async function fetchArticles() {
   const data = await res.json();
   data.forEach(article => {
     const div = document.createElement('div');
-    div.className = 'news-article';
-    div.innerHTML = `<h2>${article.title}</h2><p>${article.content}</p><small>${new Date(article.published_at).toLocaleString()}</small>`;
+    // Add a class based on precedence
+    let precedenceClass = article.precedence ? `precedence-${article.precedence.toLowerCase()}` : '';
+    let labelClass = 'precedence-label';
+    if (article.precedence && article.precedence.toLowerCase() !== 'routine') {
+      labelClass += ' precedence-serious';
+    } else if (article.precedence && article.precedence.toLowerCase() === 'routine') {
+      labelClass += ' precedence-routine';
+    }
+    div.className = `news-article ${precedenceClass}`.trim();
+    div.innerHTML = `<h2>${article.title}</h2><p>${article.content}</p><small>${article.published_at}</small><br><span class="${labelClass}">${article.precedence ? article.precedence : ''}</span>`;
     div.addEventListener('click', () => {
       console.log('Article clicked:', article);
       showModal(article);
@@ -45,11 +53,17 @@ async function fetchArticles() {
 }
 
 function showModal(article) {
-  console.log('showModal called', article);
   modalTitle.textContent = article.title;
-  modalDate.textContent = new Date(article.published_at).toLocaleString();
+  // Show the date string as it is in the database
+  modalDate.textContent = `${article.broadcast_date || ''} ${article.broadcast_time || ''}`.trim();
   modalContent.textContent = article.content;
-  modalFullStory.textContent = MOCK_FULL_STORY;
+  modalFullStory.textContent = article.full_story || article.text || article.content || '';
+  if (article.precedence && article.precedence.toLowerCase() !== 'routine') {
+    modalPrecedence.className = 'precedence-label precedence-serious';
+  } else {
+    modalPrecedence.className = 'precedence-label precedence-routine';
+  }
+  modalPrecedence.textContent = article.precedence ? article.precedence : '';
   modalBg.classList.add('active');
   console.log('modalBg classes:', modalBg.className);
 }
