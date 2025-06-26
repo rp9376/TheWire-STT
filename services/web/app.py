@@ -4,7 +4,7 @@ import requests
 import re
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'  # For session cookies (change in production)
+app.secret_key = 'ivEku3-J:M1Nu-(_SCikG'  # For session cookies (change in production)
 
 # Mock database (replace with real DB calls)
 mock_articles = [

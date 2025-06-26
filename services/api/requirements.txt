@@ -1,1 +1,3 @@
-# Requirements for API/database service
+Flask
+Flask-SQLAlchemy
+passlib

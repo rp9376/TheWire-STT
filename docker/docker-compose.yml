@@ -1,20 +1,22 @@
 version: '3.8'
 services:
-  transcription:
-    build: ../services/transcription
-    volumes:
-      - ../data:/data
-    depends_on:
-      - api
   api:
     build: ../services/api
     volumes:
-      - ../data:/data
+      - ../services/api:/app
     ports:
-      - "8000:8000"
+      - "5000:5000"
+  transcription:
+    build: ../services/transcription
+    volumes:
+      - ../services/transcription:/app
+    depends_on:
+      - api
   web:
     build: ../services/web
+    volumes:
+      - ../services/web:/app
     ports:
-      - "3000:3000"
+      - "8000:8000"
     depends_on:
       - api

@@ -12,7 +12,7 @@ import requests
 
 
 def main():
-    interval_minutes = 1.0  # Adjust this value to change the time interval
+    interval_minutes = 5.0  # Adjust this value to change the time interval
     ENABLE_TRANSCRIPTION = True  # Set to False to skip transcription for debugging
     RUN_ONCE = False  # Set to True to run only one cycle and exit
     USE_MOCK_JSON = False  # Set to True to use mock_json.txt even if no transcription
