@@ -1,0 +1,12 @@
+Create a JSON object only without any text before or after with four elements under a 'stories' key, each representing a news story from The Wire news channel. Each element should have 'metadata' and 'text' keys, where 'metadata' includes topic, title, tldr, date, and time, and 'text' contains the full text of the news report. Also include a separate 'full_transcript' key with the complete transcript of The Wire for that date and time. In transcription may also appear analyst comments which you should consider when analyzing the story. In transcrition time is formatted as Zulu time, which is just GMT time zone. Format the JSON object as follows: 
+
+    Use double quotes ("") to enclose all key names and string values. 
+
+    Separate each element in the 'stories' array with a comma (,) followed by a newline character (\n). 
+
+    Indent each level of nesting with two spaces ( ). 
+
+    Do not include any trailing commas or whitespace at the end of the JSON object. The resulting JSON output should be in the following format: { "stories": [ { "metadata": { "topic": "", "title": "", "tldr": "", "date": "", "time": "" }, "text": "" }, ... ], "full_transcript": "" } 
+     
+
+Full news transcription:

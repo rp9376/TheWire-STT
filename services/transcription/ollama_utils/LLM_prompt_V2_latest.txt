@@ -1,0 +1,56 @@
+You are given a full transcript of a news broadcast from The Wire. Your task is to extract and summarize information into a structured JSON object. Follow these instructions carefully:
+
+Output: A JSON object only. Do not include any text before or after.
+
+The JSON must contain the following top-level structure:
+{
+  "broadcast_metadata": {
+    "date": "",
+    "time": "",
+    "precedence": "",
+    "information_cutoff": ""
+  },
+  "stories": [
+    {
+      "metadata": {
+        "topic": "",
+        "title": "",
+        "tldr": "",
+        "date": "",
+        "time": ""
+      },
+      "text": ""
+    }
+    // (3 more stories, formatted identically)
+  ]
+}
+
+Instructions:
+
+1. Extract the following values from the standard broadcast header (usually found at the beginning of the transcript), which may look like this:
+
+   "This is The Wire for 2300 Zulu, June 16, 2025. Precedence is routine. Information cutoff is 2200. Bottom line up front."
+
+   Use this to fill the "broadcast_metadata" section:
+   - "date": the broadcast date (format: DD/MM/YYYY)
+   - "time": the broadcast time in Zulu (24-hour GMT format, e.g., "23:00 (GMT)")
+   - "precedence": the urgency level (e.g., routine, priority, immediate)
+   - "information_cutoff": latest included info time in Zulu (e.g., "22:00 (GMT)")
+
+2. Under the "stories" key, include exactly four stories from the transcript. Each must include:
+   - "metadata":
+     - "topic": subject or theme of the story
+     - "title": a clear, concise headline
+     - "tldr": a one-sentence summary
+     - "date": date of the story (same as broadcast)
+     - "time": time of the story (time of the broadcast if not specified)
+
+3. Analyst commentary may appear in the transcript. If so, integrate key insights into the relevant story’s text, but clearly distinguish analysis from reported facts. Do not treat analyst commentary as a separate story.
+
+Formatting rules:
+- Use double quotes for all keys and string values
+- Indent all nested structures with two spaces
+- Separate items in the "stories" array with a comma followed by a newline
+- Do not include trailing commas or extra whitespace
+
+Input Transcript:

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>Wire News Login</title>
+  <link rel="icon" type="image/png" href="/icon.png">
+  <link rel="shortcut icon" type="image/png" href="/icon.png">
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 32px auto 0 auto;
+      background: rgba(255,255,255,0.97);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+      padding: 32px 28px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    body.dark .login-container {
+      background: rgba(60,64,72,0.97);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.33);
+    }
+    .login-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .login-title {
+      font-size: 2em;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 8px #a1c4fd33;
+      line-height: 1.1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .login-title span:last-child {
+      font-size: 0.7em;
+      font-weight: 400;
+      color: #64748b;
+      margin-top: 2px;
+      letter-spacing: 0.01em;
+    }
+    body.dark .login-title {
+      color: #60a5fa;
+      text-shadow: 0 2px 8px #7b879499;
+    }
+    body.dark .login-title span:last-child {
+      color: #bfc4ca;
+    }
+    .theme-toggle-btn {
+      font-size: 1em;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: none;
+      background: #2563eb;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    #theme-toggle-icon svg { pointer-events: none; }
+    .login-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .login-form input {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #bfc4ca;
+      font-size: 1em;
+      background: #f7fafc;
+      color: #232946;
+      transition: border 0.2s;
+    }
+    body.dark .login-form input {
+      background: #23262b;
+      color: #e0e6f7;
+      border: 1px solid #7b879455;
+    }
+    .login-form input:focus {
+      border: 1.5px solid #2563eb;
+      outline: none;
+    }
+    body.dark .login-form input:focus {
+      border: 1.5px solid #60a5fa;
+    }
+    .login-form button {
+      padding: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background: #2563eb;
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-form button:hover {
+      background: #174ea6;
+    }
+    .login-form .secondary {
+      background: #bfc4ca;
+      color: #232946;
+      margin-top: 0;
+    }
+    .login-form .secondary:hover {
+      background: #a1c4fd;
+      color: #232946;
+    }
+    body.dark .login-form .secondary {
+      background: #7b8794;
+      color: #fff;
+    }
+    .login-message {
+      color: #e17055;
+      margin-top: 10px;
+      min-height: 1.2em;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .login-container {
+        padding: 18px 2vw;
+        margin: 120px auto 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <span class="login-title">
+        <span>Wire News</span>
+        <span>Login</span>
+      </span>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+        <span id="theme-toggle-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.5 13.5A7 7 0 0 1 6.5 4.5a7 7 0 1 0 9 9z" fill="#222"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+    <form class="login-form" id="login-form">
+      <input type="text" id="username" placeholder="Username" required autocomplete="username">
+      <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
+      <button type="submit">Log In</button>
+      <button type="button" class="secondary" id="signup-btn">Create Account</button>
+    </form>
+    <div class="login-message" id="login-message"></div>
+  </div>
+  <script src="/static/login.js"></script>
+  <script src="/static/theme.js"></script>
+</body>
+</html>

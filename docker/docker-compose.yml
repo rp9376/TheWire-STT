@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  api:
+    build: ../services/api
+    volumes:
+      - ../services/api:/app
+    ports:
+      - "5000:5000"
+  transcription:
+    build: ../services/transcription
+    volumes:
+      - ../services/transcription:/app
+    depends_on:
+      - api
+  web:
+    build: ../services/web
+    volumes:
+      - ../services/web:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - api
