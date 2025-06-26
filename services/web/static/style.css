@@ -228,3 +228,13 @@ body.dark .precedence-label.precedence-important {
   background: #2563eb !important;
   color: #fff !important;
 }
+#login-message {
+  margin-top: 18px;
+  font-size: 1.08em;
+  font-weight: 500;
+  text-align: center;
+}
+body.dark #login-message {
+  color: #7fffd4;
+  /* Or use another bright color for visibility, e.g. #a3e635 or #60fd8b */
+}

@@ -13,6 +13,7 @@ const modalDate = document.getElementById('modal-date');
 const modalContent = document.getElementById('modal-content');
 const modalFullStory = document.getElementById('modal-full-story');
 const modalPrecedence = document.getElementById('modal-precedence');
+const logoutBtn = document.getElementById('logout-btn');
 
 // Remove event delegation, restore per-article click
 async function fetchArticles() {
@@ -88,3 +89,16 @@ function handleScroll() {
 
 window.addEventListener('scroll', handleScroll);
 window.addEventListener('DOMContentLoaded', fetchArticles);
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', async () => {
+    try {
+      await fetch('/api/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (e) {}
+    document.cookie = 'session_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    window.location.href = '/login';
+  });
+}

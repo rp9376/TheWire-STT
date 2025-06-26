@@ -163,6 +163,19 @@ def delete_all_users():
     db.session.commit()
     return jsonify({'status': 'All users and sessions deleted!'}), 200
 
+@app.route('/api/backend_logout', methods=['POST'])
+def backend_logout():
+    data = request.get_json()
+    token = data.get('token')
+    if not token:
+        return jsonify({'success': False, 'message': 'No token provided.'}), 400
+    session = Session.query.filter_by(token=token).first()
+    if session:
+        db.session.delete(session)
+        db.session.commit()
+        return jsonify({'success': True, 'message': 'Logged out.'}), 200
+    return jsonify({'success': False, 'message': 'Session not found.'}), 400
+
 if __name__ == '__main__':
     os.system('cls' if os.name == 'nt' else 'clear')
     app.run(debug=True, host='0.0.0.0', port=5000)

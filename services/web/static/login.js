@@ -65,7 +65,7 @@ loginForm.addEventListener('submit', async function(e) {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        loginMessage.style.color = '#2563eb';
+        loginMessage.style.color = '#60fd8b'; // Brighter green for success
         loginMessage.textContent = data.message || 'Account created! You can now log in.';
         switchToLogin();
       } else {
@@ -85,7 +85,7 @@ loginForm.addEventListener('submit', async function(e) {
     });
     const data = await res.json();
     if (res.ok && data.success) {
-      loginMessage.style.color = '#2563eb';
+      loginMessage.style.color = '#60fd8b'; // Brighter green for success
       loginMessage.textContent = 'Login successful! Redirecting...';
       // Store token in localStorage for API requests
       if (data.token) localStorage.setItem('session_token', data.token);

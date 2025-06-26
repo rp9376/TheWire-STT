@@ -161,6 +161,21 @@ def serve_news():
 def favicon():
     return send_from_directory('.', 'icon.png')
 
+@app.route('/api/logout', methods=['POST'])
+def api_logout():
+    token = request.cookies.get('session_token')
+    if not token:
+        return jsonify({'success': False, 'message': 'No session token found.'}), 400
+    try:
+        resp = requests.post('http://localhost:5000/api/backend_logout', json={'token': token})
+        # Clear the session cookie
+        response = jsonify(resp.json())
+        response.set_cookie('session_token', '', expires=0, path='/', httponly=True)
+        return response, resp.status_code
+    except Exception as e:
+        response = jsonify({'success': False, 'message': f'Logout failed: {e}'})
+        response.set_cookie('session_token', '', expires=0, path='/', httponly=True)
+        return response, 500
 
 if __name__ == '__main__':
     app.run(debug=False, port=8000, host='0.0.0.0')
