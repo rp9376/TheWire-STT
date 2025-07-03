@@ -130,6 +130,7 @@ def dump_users():
         {
             'id': u.id,
             'username': u.username,
+            'password_hash': u.password_hash,  # For debugging only, do not expose in production!"
             'email': u.email
         } for u in users
     ])
