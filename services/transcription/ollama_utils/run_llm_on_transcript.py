@@ -2,7 +2,8 @@ import os
 import logging
 from ollama import Client
 
-MODEL = 'llama3.3:70b'
+#MODEL = 'llama3.3:70b'
+MODEL = 'gpt-oss:120b'
 OLLAMA_HOST = 'http://10.45.10.10:11434'
 TRANSCRIPTS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'transcripts'))
 PROMPT_DIR = os.path.dirname(__file__)
